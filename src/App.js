@@ -1,10 +1,23 @@
-
-import './App.css';
+import { BrowserRouter, Routes,Route } from "react-router-dom";
+import Home from "./Home";
+import Navbar from "./main/Navbar";
+import ProductPage from "./main/ProductPage";
+import Search from "./main/Search";
 
 function App() {
+
   return (
-    <div className=" font-bold border-4 align-middle flex justify-center">
-     App
+    <div>
+      <Navbar/>
+     <BrowserRouter>
+     <Routes>
+      <Route path="/home" element={<Home/>}/>
+      <Route path="/search" element={<Search/>}/>
+     <Route path="/product/:index" element={<ProductPage/>} > </Route>
+     <Route path="/" element={<Navbar />} />
+     </Routes>
+     
+     </BrowserRouter>
     </div>
   );
 }
