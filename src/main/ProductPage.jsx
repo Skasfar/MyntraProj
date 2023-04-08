@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from "axios";
+import { UserIncFun } from './userContext';
+import Navbar from './Navbar';
 
-const ProductPage = () => {
+const ProductPage = (p) => {
     let { index } = useParams();
     let [d, setD] = useState(null);
-
-    useEffect(() => {
+useEffect(() => {
         axios.get(`https://fakestoreapi.com/products/${index}`)
             .then((response) => {
                 setD(response.data);
@@ -16,9 +17,14 @@ const ProductPage = () => {
             });
     }, [index])
 
-    console.log(d);
+
     return (
-        <div className="flex mt-2 align-top justify-center  w-full h-2/5 p-2 flex-col sm:flex-row">
+        <UserIncFun.Consumer>{(fun)=>{
+            return (
+
+           <>
+           <Navbar />
+        <div className="flex mt-2 align-top justify-center  w-full h-2/5 p-2 flex-col sm:flex-row relative  top-28">
             {d && (
                 <section className="  w-2/3 h-2/5 hover:cursor-zoom-in ">
                     <img src={d.image} alt="" className="h-screen w-5/6" />
@@ -26,7 +32,7 @@ const ProductPage = () => {
             )}
             {d && (
                 <section className="flex flex-col  w-1/2 h-full text-center ">
-                    <h2 className="flex justify-start">
+                    <h2 className="flex justify-start uppercase">
                         Catagory: {d.category}
                     </h2>
                     <h1 className="text-xl text-left">  {d.title} </h1>
@@ -43,13 +49,15 @@ const ProductPage = () => {
                             <div className=" flex justify-center align-middle h-12 w-12 rounded-full border border-slate-500 pt-2.5 mr-4 hover:cursor-pointer">M</div> 
                             <div className=" flex justify-center align-middle h-12 w-12 rounded-full border border-slate-500 pt-2.5 mr-4 hover:cursor-pointer">L</div> 
                             <div className=" flex justify-center align-middle h-12 w-12 rounded-full border border-slate-500 pt-2.5 mr-4 hover:cursor-pointer">XL</div> 
-
                         </div>
                     </div>
-
+                    
                     <div className="flex mt-9 mb-9 ">
-                    <button class="ml-0 mr-4 bg-red-500 hover:bg-red-400 text-white font-bold py-3 px-9 rounded ">
+                    
+                    <button  class="ml-0 mr-4 bg-red-500 hover:bg-red-400 text-white font-bold py-3 px-9 rounded "  onClick={()=>fun(d)}>
+                    
                     <i class="fa-solid fa-cart-shopping"></i> ADD TO BAG </button>
+                    
                     <button class="  hover:bg-slate-50 text-gray-600  py-2 px-4 border border-gray-600 rounded">
                     <i class="fa-sharp fa-solid fa-heart"></i> WISHLIST
                     </button>
@@ -58,6 +66,10 @@ const ProductPage = () => {
                 </section>
             )}
         </div>
+        </>
+         )
+        }}
+        </UserIncFun.Consumer>
     )
 }
 
