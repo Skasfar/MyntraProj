@@ -1,9 +1,11 @@
-# Getting Started with Create React App
+# After Clonning
+    1. open the MyntraProj and then run this command: npm install -i 
+    2. npm start 
+    3. open http://localhost:3000/home 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is in Tailwind css with 
 
 ## Available Scripts
-
 In the project directory, you can run:
 
 ### `npm start`
